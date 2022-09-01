@@ -3,7 +3,7 @@ module git.code.oa.com/tencent_abtest/open-source/tagutil
 go 1.17
 
 require (
-	git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901034303-ca8e2d6fd82b // indirect
+	git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901142150-813766757967 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect

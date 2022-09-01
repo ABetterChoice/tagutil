@@ -18,7 +18,7 @@ type executor func(unitTagValue []string, configValue string) bool
 
 var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Operator]executor{
 	protoctabcacheserver.TagType_TAG_TYPE_STRING: {
-		protoctabcacheserver.Operator_OPERATOR_EG:      stringExecutorImpl.EG,
+		protoctabcacheserver.Operator_OPERATOR_EQ:      stringExecutorImpl.EQ,
 		protoctabcacheserver.Operator_OPERATOR_LT:      stringExecutorImpl.LT,
 		protoctabcacheserver.Operator_OPERATOR_LTE:     stringExecutorImpl.LTE,
 		protoctabcacheserver.Operator_OPERATOR_GT:      stringExecutorImpl.GT,
@@ -29,7 +29,7 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_NOT_IN:  stringExecutorImpl.NotIN,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_NUMBER: {
-		protoctabcacheserver.Operator_OPERATOR_EG:     numberExecutorImpl.EG,
+		protoctabcacheserver.Operator_OPERATOR_EQ:     numberExecutorImpl.EQ,
 		protoctabcacheserver.Operator_OPERATOR_LT:     numberExecutorImpl.LT,
 		protoctabcacheserver.Operator_OPERATOR_LTE:    numberExecutorImpl.LTE,
 		protoctabcacheserver.Operator_OPERATOR_GT:     numberExecutorImpl.GT,
@@ -43,10 +43,10 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_LCRC:   numberExecutorImpl.LCRC,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_BOOLEAN: {
-		protoctabcacheserver.Operator_OPERATOR_EG: booleanExecutorImpl.EG,
+		protoctabcacheserver.Operator_OPERATOR_EQ: booleanExecutorImpl.EQ,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_VERSION: {
-		protoctabcacheserver.Operator_OPERATOR_EG:      versionExecutorImpl.EG,
+		protoctabcacheserver.Operator_OPERATOR_EQ:      versionExecutorImpl.EQ,
 		protoctabcacheserver.Operator_OPERATOR_LT:      versionExecutorImpl.LT,
 		protoctabcacheserver.Operator_OPERATOR_LTE:     versionExecutorImpl.LTE,
 		protoctabcacheserver.Operator_OPERATOR_GT:      versionExecutorImpl.GT,
@@ -65,9 +65,9 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: emptyExecutorImpl.IsNotEmpty,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_SET: {
-		protoctabcacheserver.Operator_OPERATOR_SUB_SET:   setExecutorImpl.IsSubSet,
-		protoctabcacheserver.Operator_OPERATOR_SUPER_SET: setExecutorImpl.IsSuperSet,
-		protoctabcacheserver.Operator_OPERATOR_EG:        setExecutorImpl.EG,
+		protoctabcacheserver.Operator_OPERATOR_SUB_SET:   setExecutorImpl.IsSubset,
+		protoctabcacheserver.Operator_OPERATOR_SUPER_SET: setExecutorImpl.IsSuperset,
+		protoctabcacheserver.Operator_OPERATOR_EQ:        setExecutorImpl.EQ,
 	},
 }
 

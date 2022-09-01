@@ -10,8 +10,8 @@ var (
 	booleanExecutorImpl = &booleanExecutor{}
 )
 
-// EG unitTagValue 的值是否跟 configValue 一致，需要 unitTagValue 中所有元素都满足才为 true
-func (e *booleanExecutor) EG(unitTagValue []string, configValue string) bool {
+// EQ unitTagValue 的值是否跟 configValue 一致，需要 unitTagValue 中所有元素都满足才为 true
+func (e *booleanExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
 	}

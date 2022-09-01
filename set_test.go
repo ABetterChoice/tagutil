@@ -73,8 +73,8 @@ func Test_setExecutor_IsSubSet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &setExecutor{}
-			if got := e.IsSubSet(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("IsSubSet() = %v, want %v", got, tt.want)
+			if got := e.IsSubset(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsSubset() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -150,8 +150,8 @@ func Test_setExecutor_IsSuperSet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &setExecutor{}
-			if got := e.IsSuperSet(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("IsSuperSet() = %v, want %v", got, tt.want)
+			if got := e.IsSuperset(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsSuperset() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -243,8 +243,8 @@ func Test_setExecutor_EG(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &setExecutor{}
-			if got := e.EG(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("EG() = %v, want %v", got, tt.want)
+			if got := e.EQ(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("EQ() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -129,8 +129,8 @@ func Test_booleanExecutor_EG(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &booleanExecutor{}
-			if got := e.EG(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("EG() = %v, want %v", got, tt.want)
+			if got := e.EQ(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("EQ() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -16,8 +16,8 @@ var (
 	stringExecutorImpl = stringExecutor{}
 )
 
-// EG unit 的标签值等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
-func (e *stringExecutor) EG(unitTagValue []string, configValue string) bool {
+// EQ unit 的标签值等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+func (e *stringExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}

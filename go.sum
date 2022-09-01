@@ -6,6 +6,8 @@ git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-2022082908334
 git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220829083345-e9da680d65ea/go.mod h1:vm4hJrFAPT6thVd+Wm14rZGDDj5hcEOkKoNAKjYLQCQ=
 git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901034303-ca8e2d6fd82b h1:F9AKNch1a75pewAeK7f5jwWQ0Bnsi3R6fhGz5q+iVoM=
 git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901034303-ca8e2d6fd82b/go.mod h1:vm4hJrFAPT6thVd+Wm14rZGDDj5hcEOkKoNAKjYLQCQ=
+git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901142150-813766757967 h1:fsY/iZ1maG/mHZxcvBkznfaJcwt2+avV2W1NGxb/p2k=
+git.code.oa.com/tencent_abtest/protocol/protoc_cache_server v0.0.0-20220901142150-813766757967/go.mod h1:vm4hJrFAPT6thVd+Wm14rZGDDj5hcEOkKoNAKjYLQCQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
