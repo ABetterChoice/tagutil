@@ -245,10 +245,12 @@ func (e *numberExecutor) LORC(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
+	// 左侧
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
+	// 右侧
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
@@ -275,10 +277,12 @@ func (e *numberExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
+	// 左侧
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
+	// 右侧
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
@@ -298,6 +302,7 @@ func (e *numberExecutor) LCRO(unitTagValue []string, configValue string) bool {
 // LCRC 左闭右闭区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
 // 这里不判定 left 是否小于 right，由 web 平台去控制
 func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
+	// 如果没有值，则恒为false
 	if len(unitTagValue) == 0 {
 		return false
 	}
@@ -305,14 +310,17 @@ func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
+	// 左侧
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
+	// 右侧
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		item, err := decimal.NewFromString(unitTagValue[i])
 		if err != nil {

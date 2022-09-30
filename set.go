@@ -16,6 +16,7 @@ func (e *setExecutor) IsSubset(unitTagValue []string, configValue string) bool {
 		return true // 特殊的，不同于其他执行器，空也算子集
 	}
 	configValueItemList := strings.Split(configValue, splitSeg) // 数组统一用 ; 分割
+	// 遍历
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueItemList {
@@ -37,6 +38,7 @@ func (e *setExecutor) IsSuperset(unitTagValue []string, configValue string) bool
 		return true // 空的 configValue 结果恒为 true
 	}
 	configValueItemList := strings.Split(configValue, splitSeg) // 数组统一用 ; 分割
+	// 遍历
 	for i := range configValueItemList {
 		inFlag := false
 		for j := range unitTagValue {
