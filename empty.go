@@ -10,6 +10,7 @@ var (
 
 // IsEmpty unitTagValue 传入的标签值是否为空
 func (e *emptyExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
+	// 是否有，同时len不为0
 	return unitTagValue == nil || len(unitTagValue) == 0
 }
 

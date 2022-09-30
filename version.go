@@ -150,6 +150,7 @@ func (e *versionExecutor) NE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 匹配
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) == 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false

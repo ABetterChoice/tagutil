@@ -52,6 +52,7 @@ func (e *setExecutor) IsSuperset(unitTagValue []string, configValue string) bool
 	return true
 }
 
+// EQ 相等
 func (e *setExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return e.IsSubset(unitTagValue, configValue) && e.IsSuperset(unitTagValue, configValue)
 }
