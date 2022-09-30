@@ -215,14 +215,17 @@ func (e *numberExecutor) LORO(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
+	// 左侧
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
+	// 右侧
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		item, err := decimal.NewFromString(unitTagValue[i])
 		if err != nil {
