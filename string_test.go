@@ -925,6 +925,14 @@ func Test_stringExecutor_REGEXP(t *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "normal",
+			args: args{
+				unitTagValue: []string{"1-ios-mac"},
+				configValue:  "ios",
+			},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

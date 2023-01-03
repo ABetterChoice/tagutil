@@ -2,7 +2,7 @@
 package tagutil
 
 import (
-	"git.code.oa.com/tencent_abtest/protocol/protoc_cache_server"
+	"git.woa.com/tencent_abtest/protocol/protoc_cache_server"
 	"testing"
 )
 
