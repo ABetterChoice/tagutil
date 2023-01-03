@@ -85,6 +85,7 @@ func (e *versionExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) != 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -98,6 +99,7 @@ func (e *versionExecutor) LT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) >= 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -111,6 +113,7 @@ func (e *versionExecutor) LTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) > 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -124,6 +127,7 @@ func (e *versionExecutor) GT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) <= 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -137,6 +141,7 @@ func (e *versionExecutor) GTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
+	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) < 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -147,11 +152,14 @@ func (e *versionExecutor) GTE(unitTagValue []string, configValue string) bool {
 
 // NE unit 的标签值不等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
 func (e *versionExecutor) NE(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
+	// 没有携带用户标签，默认 false
+	if len(unitTagValue) == 0 {
 		return false
 	}
+	// 匹配
 	for i := range unitTagValue {
-		if e.compare(unitTagValue[i], configValue) == 0 { // 任何一个 unitTagValue 不满足，结果为 false
+		// 任何一个 unitTagValue 不满足，结果为 false
+		if e.compare(unitTagValue[i], configValue) == 0 {
 			return false
 		}
 	}

@@ -111,10 +111,12 @@ func (e *stringExecutor) REGEXP(unitTagValue []string, configValue string) bool 
 
 // IN 判断 unitTagValue 是否都在 configValue 中，configValue，用 ; 分割
 func (e *stringExecutor) IN(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
+	// 没有携带用户标签，默认 false
+	if len(unitTagValue) == 0 {
 		return false
 	}
 	configValueList := strings.Split(configValue, splitSeg)
+	// 遍历
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueList {
@@ -132,10 +134,12 @@ func (e *stringExecutor) IN(unitTagValue []string, configValue string) bool {
 
 // NotIN 判断 unitTagValue 是否都不在 configValue 中，configValue，用 ; 分割
 func (e *stringExecutor) NotIN(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
+	// 没有携带用户标签，默认 false
+	if len(unitTagValue) == 0 {
 		return false
 	}
 	configValueList := strings.Split(configValue, splitSeg)
+	// 遍历
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueList {
