@@ -2,7 +2,7 @@
 package tagutil
 
 import (
-	protoctabcacheserver "git.woa.com/tencent_abtest/protocol/protoc_cache_server"
+	protoctabcacheserver "git.tencent.com/abetterchoice/protocol/protoc_cache_server"
 )
 
 // IsHit 标签表达式是否为 true，如果是不支持的标签表达式，结果为 false

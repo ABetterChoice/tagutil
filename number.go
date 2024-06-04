@@ -2,8 +2,9 @@
 package tagutil
 
 import (
-	"github.com/shopspring/decimal"
 	"strings"
+
+	"github.com/shopspring/decimal"
 )
 
 // numberExecutor 数值类型计算器

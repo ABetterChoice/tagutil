@@ -2,9 +2,10 @@
 package tagutil
 
 import (
-	"github.com/shopspring/decimal"
 	"regexp"
 	"strings"
+
+	"github.com/shopspring/decimal"
 )
 
 // versionExecutor 版本执行器，对版本号进行逻辑比较，版本号为
