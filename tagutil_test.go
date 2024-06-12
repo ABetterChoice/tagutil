@@ -4,7 +4,7 @@ package tagutil
 import (
 	"testing"
 
-	"git.tencent.com/abetterchoice/protocol/protoc_cache_server"
+	"github.com/abetterchoice/protoc_cache_server"
 )
 
 //go:generate go test ./... -coverprofile=size_coverage.out -gcflags "all=-N -l"

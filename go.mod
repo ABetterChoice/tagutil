@@ -1,9 +1,9 @@
-module git.tencent.com/abetterchoice/tagutil
+module github.com/abetterchoice/tagutil
 
 go 1.17
 
 require (
-	git.tencent.com/abetterchoice/protocol/protoc_cache_server v0.0.0-20240604073730-89430b62bd31
+	github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52
 	github.com/shopspring/decimal v1.3.1
 )
 
