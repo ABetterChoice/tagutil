@@ -7,14 +7,14 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// numberExecutor 数值类型计算器
+// numberExecutor Numeric Calculator
 type numberExecutor struct{}
 
 var (
 	numberExecutorImpl = &numberExecutor{}
 )
 
-// EQ unit 的标签值等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the EQ unit is equal to the tag value configured by the web system. All unitTagValue elements must be satisfied to pass.
 func (e *numberExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -35,7 +35,7 @@ func (e *numberExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LT unit 的标签值小于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the LT unit is less than the tag value configured by the web system. All unitTagValue elements must meet the requirement to pass.
 func (e *numberExecutor) LT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -56,7 +56,7 @@ func (e *numberExecutor) LT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LTE unit 的标签值小于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the LTE unit is less than or equal to the tag value configured by the web system. All unitTagValue elements must meet the requirement to pass.
 func (e *numberExecutor) LTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -77,7 +77,7 @@ func (e *numberExecutor) LTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GT unit 的标签值大于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the GT unit is greater than the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *numberExecutor) GT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -98,7 +98,7 @@ func (e *numberExecutor) GT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GTE unit 的标签值大于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the GTE unit is greater than or equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *numberExecutor) GTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -119,7 +119,7 @@ func (e *numberExecutor) GTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NE unit 的标签值不等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// The tag value of the NE unit is not equal to the tag value configured by the web system. All unitTagValue elements must be satisfied to pass.
 func (e *numberExecutor) NE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -140,7 +140,7 @@ func (e *numberExecutor) NE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IN 判断 unitTagValue 是否都在 configValue 中，configValue，用 ; 分割
+// IN Determines whether unitTagValue is in configValue. configValue is separated by ;
 func (e *numberExecutor) IN(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -173,7 +173,7 @@ func (e *numberExecutor) IN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NotIN 判断 unitTagValue 是否都不在 configValue 中，configValue，用 ; 分割
+// NotIN Determine whether unitTagValue is not in configValue. configValue is separated by ;
 func (e *numberExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -206,8 +206,8 @@ func (e *numberExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LORO 左开右开区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LORO The left-open and right-open intervals are determined. configValue identifies the interval at this time, separated by : , and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *numberExecutor) LORO(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -216,17 +216,17 @@ func (e *numberExecutor) LORO(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
-	// 左侧
+	// Left
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
-	// 右侧
+	// Right
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
 	}
-	// 遍历
+	// Traversal
 	for i := range unitTagValue {
 		item, err := decimal.NewFromString(unitTagValue[i])
 		if err != nil {
@@ -239,8 +239,8 @@ func (e *numberExecutor) LORO(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LORC 左开右闭区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LORC The left-open and right-closed interval is determined. configValue identifies the interval at this time, separated by :, and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *numberExecutor) LORC(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -249,12 +249,12 @@ func (e *numberExecutor) LORC(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
-	// 左侧
+	// Left
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
-	// 右侧
+	// Right
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
@@ -271,8 +271,8 @@ func (e *numberExecutor) LORC(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LCRO 左闭右开区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LCRO The left closed and right open interval is determined. configValue identifies the interval at this time, separated by :, and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *numberExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -281,12 +281,12 @@ func (e *numberExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
-	// 左侧
+	// Left
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
-	// 右侧
+	// Right
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
@@ -303,10 +303,10 @@ func (e *numberExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LCRC 左闭右闭区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LCRC Left-closed and right-closed interval determination, configValue identifies the interval at this time, separated by :, there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
-	// 如果没有值，则恒为false
+	// If there is no value, it is always false.
 	if len(unitTagValue) == 0 {
 		return false
 	}
@@ -314,17 +314,17 @@ func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	if len(configValueRange) != 2 { // 用 : 分割，有且仅有一个 ：，分割left、right
 		return false
 	}
-	// 左侧
+	// Left
 	left, err := decimal.NewFromString(configValueRange[0])
 	if err != nil {
 		return false
 	}
-	// 右侧
+	// Right
 	right, err := decimal.NewFromString(configValueRange[1])
 	if err != nil {
 		return false
 	}
-	// 遍历
+	// Range
 	for i := range unitTagValue {
 		item, err := decimal.NewFromString(unitTagValue[i])
 		if err != nil {

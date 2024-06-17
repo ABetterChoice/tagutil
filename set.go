@@ -3,20 +3,19 @@ package tagutil
 
 import "strings"
 
-// setExecutor 集合执行器
+// setExecutor Collection Executor
 type setExecutor struct{}
 
 var (
 	setExecutorImpl = &setExecutor{}
 )
 
-// IsSubset unitTagValue 是否为 configValue 的子集，特别的，空的 unitTagValue 结果恒为 true
+// IsSubset Whether unitTagValue is a subset of configValue. In particular, an empty unitTagValue always returns true.
 func (e *setExecutor) IsSubset(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return true // 特殊的，不同于其他执行器，空也算子集
 	}
-	configValueItemList := strings.Split(configValue, splitSeg) // 数组统一用 ; 分割
-	// 遍历
+	configValueItemList := strings.Split(configValue, splitSeg)
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueItemList {
@@ -32,13 +31,12 @@ func (e *setExecutor) IsSubset(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IsSuperset unitTagValue 是否为 configValue 的超集，特别的，空的 configValue 结果恒为 true
+// IsSuperset Whether unitTagValue is a superset of configValue. In particular, an empty configValue always returns true.
 func (e *setExecutor) IsSuperset(unitTagValue []string, configValue string) bool {
 	if len(configValue) == 0 {
 		return true // 空的 configValue 结果恒为 true
 	}
-	configValueItemList := strings.Split(configValue, splitSeg) // 数组统一用 ; 分割
-	// 遍历
+	configValueItemList := strings.Split(configValue, splitSeg)
 	for i := range configValueItemList {
 		inFlag := false
 		for j := range unitTagValue {
@@ -54,7 +52,7 @@ func (e *setExecutor) IsSuperset(unitTagValue []string, configValue string) bool
 	return true
 }
 
-// EQ 相等
+// EQ equal
 func (e *setExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return e.IsSubset(unitTagValue, configValue) && e.IsSuperset(unitTagValue, configValue)
 }

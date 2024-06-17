@@ -6,17 +6,17 @@ import (
 	"strings"
 )
 
-// stringExecutor 字符串表达式执行器，正常来说，字符串类型，用户标签值应该是一个字符串
-// 由于用户标签是字符串数组，数组任何一个不满足表达式，都判定为 false
-// 例如，用户标签值 [ab,aa] 要求大于 aa 的才能满足，虽然 ab 满足 ab > aa, 但 aa 不满足 aa > aa，故结果为 false
-// 只有全部满足才为 true
+// stringExecutor String expression executor. Normally, the string type and the user tag value should be a string.
+// Since the user tag is a string array, any string in the array that does not satisfy the expression will be judged as false.
+// For example, the user tag value [ab,aa] must be greater than aa to satisfy. Although ab satisfies ab > aa, aa does not satisfy aa > aa, so the result is false.
+// True only if all are met
 type stringExecutor struct{}
 
 var (
 	stringExecutorImpl = stringExecutor{}
 )
 
-// EQ unit 的标签值等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// EQ The tag value of the unit is equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *stringExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -29,7 +29,7 @@ func (e *stringExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LT unit 的标签值小于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// LT The tag value of the unit is less than the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *stringExecutor) LT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -42,7 +42,7 @@ func (e *stringExecutor) LT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LTE unit 的标签值小于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// LTE The tag value of the unit is less than or equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *stringExecutor) LTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -55,7 +55,7 @@ func (e *stringExecutor) LTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GT unit 的标签值大于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// GT The tag value of the unit is greater than the tag value configured by the web system. All unitTagValue elements must satisfy this condition to pass.
 func (e *stringExecutor) GT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -68,7 +68,7 @@ func (e *stringExecutor) GT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GTE unit 的标签值大于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// GTE The tag value of the unit is greater than or equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *stringExecutor) GTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -81,7 +81,7 @@ func (e *stringExecutor) GTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NE unit 的标签值不等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// NE The tag value of the unit is not equal to the tag value configured by the web system. All unitTagValue elements must be satisfied for the request to pass.
 func (e *stringExecutor) NE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -94,9 +94,9 @@ func (e *stringExecutor) NE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// REGEXP unit 的标签值满足 web 系统配置的正则表达式，所有 unitTagValue 元素必须满足才通过
-// 例如 unitTagValue[0] = `Hello Regexp` configValue = `^Hello` match == true
-// 特别的，当 configValue 为空时 ""，结果为 true；当 configValue 为*时 "*"，结果为 false
+// REGEXP The tag value of the unit satisfies the regular expression configured by the web system. All unitTagValue elements must satisfy this to pass.
+// such as unitTagValue[0] = `Hello Regexp` configValue = `^Hello` match == true
+// In particular, when configValue is empty "", the result is true; when configValue is * "*", the result is false
 func (e *stringExecutor) REGEXP(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -109,14 +109,13 @@ func (e *stringExecutor) REGEXP(unitTagValue []string, configValue string) bool 
 	return true
 }
 
-// IN 判断 unitTagValue 是否都在 configValue 中，configValue，用 ; 分割
+// IN Determine whether unitTagValue is in configValue. configValue is separated by ;
 func (e *stringExecutor) IN(unitTagValue []string, configValue string) bool {
-	// 没有携带用户标签，默认 false
+	// No user tag is carried, default is false
 	if len(unitTagValue) == 0 {
 		return false
 	}
 	configValueList := strings.Split(configValue, splitSeg)
-	// 遍历
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueList {
@@ -132,14 +131,13 @@ func (e *stringExecutor) IN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NotIN 判断 unitTagValue 是否都不在 configValue 中，configValue，用 ; 分割
+// NotIN Determine whether unitTagValue is not in configValue. configValue is separated by ;
 func (e *stringExecutor) NotIN(unitTagValue []string, configValue string) bool {
-	// 没有携带用户标签，默认 false
+	// No user tag is carried, default is false
 	if len(unitTagValue) == 0 {
 		return false
 	}
 	configValueList := strings.Split(configValue, splitSeg)
-	// 遍历
 	for i := range unitTagValue {
 		inFlag := false
 		for j := range configValueList {
