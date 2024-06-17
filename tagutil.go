@@ -5,7 +5,7 @@ import (
 	protoctabcacheserver "github.com/abetterchoice/protoc_cache_server"
 )
 
-// IsHit 标签表达式是否为 true，如果是不支持的标签表达式，结果为 false
+// IsHit Whether the label expression is true. If it is an unsupported label expression, the result is false.
 func IsHit(tagType protoctabcacheserver.TagType, operator protoctabcacheserver.Operator, unitTagValue []string, configValue string) bool {
 	e, ok := executorIndex[tagType][operator]
 	if !ok {
@@ -72,6 +72,6 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 }
 
 const (
-	splitSeg      = ";" // 分割符，多个值分割
-	rangeSplitSeg = ":" // 区间分割符，有且仅有一个:，左右分别是 number 类型，代表 left、right
+	splitSeg      = ";" // Separator, multiple value separation
+	rangeSplitSeg = ":" // There is only one interval separator:, and the left and right are number types, representing left and right
 )

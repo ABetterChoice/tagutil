@@ -3,14 +3,14 @@ package tagutil
 
 import "strconv"
 
-// booleanExecutor 布尔表达式执行器
+// booleanExecutor Boolean Expression Executor
 type booleanExecutor struct{}
 
 var (
 	booleanExecutorImpl = &booleanExecutor{}
 )
 
-// EQ unitTagValue 的值是否跟 configValue 一致，需要 unitTagValue 中所有元素都满足才为 true
+// Whether the value of EQ unitTagValue is consistent with configValue, all elements in unitTagValue must be satisfied to be true
 func (e *booleanExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false

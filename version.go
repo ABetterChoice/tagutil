@@ -8,25 +8,25 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// versionExecutor 版本执行器，对版本号进行逻辑比较，版本号为
-// 分割符为 . 例如 9.9.9.9，同时支持 9.9.9.9-beta
-// 版本号用 . 分割
-// configValue 后台需要校验是否符合该规则
-// 特别的，9.9.9.9-beta > 9.9.9.9，跟 git tag 版本号规则有点区别，需要特别注意
-// 版本号不允许比 '0' 还小的 ascii 字符出现，也不支持汉字等非 ascii 字符，如果存在，则结果不可信，
+// versionExecutor The version executor performs a logical comparison on the version number. The version number is
+// The separator is . For example, 9.9.9.9, and 9.9.9.9-beta is also supported.
+// The version number is separated by .
+// configValue The background needs to verify whether it complies with the rule
+// In particular, 9.9.9.9-beta > 9.9.9.9 is slightly different from the git tag version number rule, so you need to pay special attention to it.
+// The version number does not allow ASCII characters smaller than '0' to appear, and does not support non-ASCII characters such as Chinese characters. If they exist, the result is unreliable.
 type versionExecutor struct{}
 
 var (
 	versionExecutorImpl = &versionExecutor{}
 )
 
-// compare 版本俩俩比较
-// 如果 unitTagValueVersion >[版本号比较] configVersion 则返回 1
-// 如果 unitTagValueVersion =[版本号比较] configVersion 则返回 0
-// 如果 unitTagValueVersion <[版本号比较] configVersion 则返回 -1
-// 例如：9.9.9 比较 9.8.8，结果返回 1
-// 为了支持A-Z a-z，进制改为128进制，所以这个方法只支持长度为9的小版本号 例如 12aabb123.3454aabb12.123456712.123456789
-// 超过的限定长度结果不可信，需要用 decimalCompare，为了性能，且大部分不会超过9位，故提供简单的 compare 方法
+// compare Compare versions
+// If unitTagValueVersion > [version number comparison] configVersion, return 1
+// If unitTagValueVersion = [version number comparison] configVersion, return 0
+// If unitTagValueVersion < [version number comparison] configVersion, return -1
+// For example: 9.9.9 compares 9.8.8, and the result returns 1
+// In order to support A-Z a-z, the base is changed to 128, so this method only supports small version numbers with a length of 9, such as 12aabb123.3454aabb12.123456712.123456789
+// The result exceeding the limited length is unreliable, and decimalCompare needs to be used. For performance reasons, most of them will not exceed 9 digits, so a simple compare method is provided
 func (e *versionExecutor) compare(unitTagValueVersion string, configVersion string) int {
 	for i, j := 0, 0; i < len(unitTagValueVersion) || j < len(configVersion); {
 		var num1 int64 = 0
@@ -51,12 +51,12 @@ func (e *versionExecutor) compare(unitTagValueVersion string, configVersion stri
 	return 0
 }
 
-// compareByDecimal 版本俩俩比较
-// 如果 unitTagValueVersion >[版本号比较] configVersion 则返回 1
-// 如果 unitTagValueVersion =[版本号比较] configVersion 则返回 0
-// 如果 unitTagValueVersion <[版本号比较] configVersion 则返回 -1
-// 例如：9.9.9 比较 9.8.8，结果返回 1
-// 为了支持A-Z a-z，进制改为128进制，支持超长版本号比较，如 12aabb123424.3454aabb6876786755.1234567gg67867868.1234567gg76768768
+// compareByDecimal Compare versions
+// If unitTagValueVersion > [version number comparison] configVersion, return 1
+// If unitTagValueVersion = [version number comparison] configVersion, return 0
+// If unitTagValueVersion < [version number comparison] configVersion, return -1
+// For example: 9.9.9 compares 9.8.8, the result returns 1
+// In order to support A-Z a-z, the base is changed to base 128, and ultra-long version number comparison is supported, such as 12aabb123424.3454aabb6876786755.1234567gg67867868.1234567gg76768768
 func (e *versionExecutor) compareByDecimal(unitTagValueVersion string, configVersion string) int {
 	for i, j := 0, 0; i < len(unitTagValueVersion) || j < len(configVersion); {
 		var num1 = decimal.NewFromInt(0)
@@ -81,12 +81,11 @@ func (e *versionExecutor) compareByDecimal(unitTagValueVersion string, configVer
 	return 0
 }
 
-// EQ unit 的标签值等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// EQ The tag value of the unit is equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *versionExecutor) EQ(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
-	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) != 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -95,12 +94,11 @@ func (e *versionExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LT unit 的标签值小于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// LT The tag value of the unit is less than the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *versionExecutor) LT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
-	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) >= 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -109,12 +107,11 @@ func (e *versionExecutor) LT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LTE unit 的标签值小于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// LTE The tag value of the unit is less than or equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *versionExecutor) LTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
-	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) > 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -123,12 +120,11 @@ func (e *versionExecutor) LTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GT unit 的标签值大于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// GT The tag value of the unit is greater than the tag value configured by the web system. All unitTagValue elements must satisfy this condition to pass.
 func (e *versionExecutor) GT(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
-	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) <= 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -137,12 +133,11 @@ func (e *versionExecutor) GT(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// GTE unit 的标签值大于等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// GTE The tag value of the unit is greater than or equal to the tag value configured by the web system. All unitTagValue elements must meet this requirement to pass.
 func (e *versionExecutor) GTE(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
 	}
-	// 遍历
 	for i := range unitTagValue {
 		if e.compare(unitTagValue[i], configValue) < 0 { // 任何一个 unitTagValue 不满足，结果为 false
 			return false
@@ -151,15 +146,15 @@ func (e *versionExecutor) GTE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NE unit 的标签值不等于 web 系统配置的标签值，所有 unitTagValue 元素必须满足才通过
+// NE The tag value of the unit is not equal to the tag value configured by the web system. All unitTagValue elements must be satisfied for the request to pass.
 func (e *versionExecutor) NE(unitTagValue []string, configValue string) bool {
-	// 没有携带用户标签，默认 false
+	// No user tag is carried, default is false
 	if len(unitTagValue) == 0 {
 		return false
 	}
-	// 匹配
+
 	for i := range unitTagValue {
-		// 任何一个 unitTagValue 不满足，结果为 false
+		// If any unitTagValue is not satisfied, the result is false
 		if e.compare(unitTagValue[i], configValue) == 0 {
 			return false
 		}
@@ -167,8 +162,8 @@ func (e *versionExecutor) NE(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// REGEXP unit 的标签值满足 web 系统配置的正则表达式，所有 unitTagValue 元素必须满足才通过
-// 例如 unitTagValue[0] = `Hello Regexp` configValue = `^Hello` match == true
+// REGEXP The tag value of unit satisfies the regular expression configured by the web system. All unitTagValue elements must satisfy the regular expression to pass.
+// For example, unitTagValue[0] = `Hello Regexp` configValue = `^Hello` match == true
 func (e *versionExecutor) REGEXP(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -181,7 +176,7 @@ func (e *versionExecutor) REGEXP(unitTagValue []string, configValue string) bool
 	return true
 }
 
-// IN 判断 unitTagValue 是否都在 configValue 中，configValue，用 ; 分割
+// IN Determine whether unitTagValue is in configValue. configValue is separated by ;
 func (e *versionExecutor) IN(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -202,7 +197,7 @@ func (e *versionExecutor) IN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// NotIN 判断 unitTagValue 是否都不在 configValue 中，configValue，用 ; 分割
+// NotIN Determine whether unitTagValue is not in configValue. configValue is separated by ;
 func (e *versionExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 { // 没有携带用户标签，默认 false
 		return false
@@ -218,8 +213,8 @@ func (e *versionExecutor) NotIN(unitTagValue []string, configValue string) bool 
 	return true
 }
 
-// LORO 左开右开区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LORO The left-open and right-open intervals are determined. configValue identifies the interval at this time, separated by : , and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *versionExecutor) LORO(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -238,8 +233,8 @@ func (e *versionExecutor) LORO(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LORC 左开右闭区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LORC The left-open and right-closed interval is determined. configValue identifies the interval at this time, separated by :, and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *versionExecutor) LORC(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -258,8 +253,8 @@ func (e *versionExecutor) LORC(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LCRO 左闭右开区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LCRO The left closed and right open interval is determined. configValue identifies the interval at this time, separated by :, and there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *versionExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false
@@ -278,8 +273,8 @@ func (e *versionExecutor) LCRO(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// LCRC 左闭右闭区间判定，configValue 此时标识区间，用 : 分割，有且仅有一个 ：
-// 这里不判定 left 是否小于 right，由 web 平台去控制
+// LCRC Left-closed and right-closed interval determination, configValue identifies the interval at this time, separated by :, there is only one :
+// Here we do not determine whether left is smaller than right, which is controlled by the web platform.
 func (e *versionExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return false

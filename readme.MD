@@ -1,10 +1,10 @@
-## 标签表达式计算器
-### 支持类型
-- [x] 数值类型
-- [x] 字符串类型
-- [x] 布尔类型
-- [x] 集合类型
-- [x] 版本号类型
-- [x] empty 类型
+## Tag expression calculator
+### Supported types
+- [x] Numeric type
+- [x] String type
+- [x] Boolean type
+- [x] Collection type
+- [x] Version number type
+- [x] Empty type
 
-代码覆盖率 100%，单测通过率 100%
+Code coverage 100%, single test pass rate 100%
