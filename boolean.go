@@ -31,12 +31,12 @@ func (e *booleanExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// Empty Determine the TagKey for UnitTagValue does not exist
-func (e *booleanExecutor) Empty(unitTagValue []string, configValue string) bool {
-	return len(unitTagValue) == 0
+// IsEmpty unitTagValue Determine whether the passed tag value is empty
+func (e *booleanExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
+	return unitTagValue == nil || len(unitTagValue) == 0
 }
 
-// NotEmpty Determine the TagKey for UnitTagValue exists
-func (e *booleanExecutor) NotEmpty(unitTagValue []string, configValue string) bool {
-	return len(unitTagValue) != 0
+// IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
+func (e *booleanExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
+	return len(unitTagValue) > 0
 }

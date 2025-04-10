@@ -27,8 +27,8 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_REGULAR:   stringExecutorImpl.REGEXP,
 		protoctabcacheserver.Operator_OPERATOR_IN:        stringExecutorImpl.IN,
 		protoctabcacheserver.Operator_OPERATOR_NOT_IN:    stringExecutorImpl.NotIN,
-		protoctabcacheserver.Operator_OPERATOR_EMPTY:     stringExecutorImpl.Empty,
-		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: stringExecutorImpl.NotEmpty,
+		protoctabcacheserver.Operator_OPERATOR_EMPTY:     stringExecutorImpl.IsEmpty,
+		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: stringExecutorImpl.IsNotEmpty,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_NUMBER: {
 		protoctabcacheserver.Operator_OPERATOR_EQ:        numberExecutorImpl.EQ,
@@ -43,13 +43,13 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_LORC:      numberExecutorImpl.LORC,
 		protoctabcacheserver.Operator_OPERATOR_LCRO:      numberExecutorImpl.LCRO,
 		protoctabcacheserver.Operator_OPERATOR_LCRC:      numberExecutorImpl.LCRC,
-		protoctabcacheserver.Operator_OPERATOR_EMPTY:     numberExecutorImpl.Empty,
-		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: numberExecutorImpl.NotEmpty,
+		protoctabcacheserver.Operator_OPERATOR_EMPTY:     numberExecutorImpl.IsEmpty,
+		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: numberExecutorImpl.IsNotEmpty,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_BOOLEAN: {
 		protoctabcacheserver.Operator_OPERATOR_EQ:        booleanExecutorImpl.EQ,
-		protoctabcacheserver.Operator_OPERATOR_EMPTY:     booleanExecutorImpl.Empty,
-		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: booleanExecutorImpl.NotEmpty,
+		protoctabcacheserver.Operator_OPERATOR_EMPTY:     booleanExecutorImpl.IsEmpty,
+		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: booleanExecutorImpl.IsNotEmpty,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_VERSION: {
 		protoctabcacheserver.Operator_OPERATOR_EQ:      versionExecutorImpl.EQ,
