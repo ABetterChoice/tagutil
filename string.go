@@ -152,3 +152,13 @@ func (e *stringExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	}
 	return true
 }
+
+// Empty Determine the TagKey for UnitTagValue does not exist
+func (e *stringExecutor) Empty(unitTagValue []string, configValue string) bool {
+	return len(unitTagValue) == 0
+}
+
+// NotEmpty Determine the TagKey for UnitTagValue exists
+func (e *stringExecutor) NotEmpty(unitTagValue []string, configValue string) bool {
+	return len(unitTagValue) != 0
+}

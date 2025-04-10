@@ -336,3 +336,13 @@ func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	}
 	return true
 }
+
+// Empty Determine the TagKey for UnitTagValue does not exist
+func (e *numberExecutor) Empty(unitTagValue []string, configValue string) bool {
+	return len(unitTagValue) == 0
+}
+
+// NotEmpty Determine the TagKey for UnitTagValue exists
+func (e *numberExecutor) NotEmpty(unitTagValue []string, configValue string) bool {
+	return len(unitTagValue) != 0
+}
