@@ -33,7 +33,7 @@ func (e *booleanExecutor) EQ(unitTagValue []string, configValue string) bool {
 
 // IsEmpty unitTagValue Determine whether the passed tag value is empty
 func (e *booleanExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
-	return unitTagValue == nil || len(unitTagValue) == 0
+	return len(unitTagValue) == 0
 }
 
 // IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
