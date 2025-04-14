@@ -337,12 +337,12 @@ func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IsEmpty unitTagValue Determine whether the passed tag value is empty
+// IsEmpty unitTagValue Determine whether the passed tag key or value is empty
 func (e *numberExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
 	return len(unitTagValue) == 0
 }
 
-// IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
+// IsNotEmpty unitTagValue Determine whether the passed tag key or value is not empty
 func (e *numberExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
-	return len(unitTagValue) > 0
+	return !e.IsEmpty(unitTagValue, configValue)
 }
