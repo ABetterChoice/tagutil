@@ -342,7 +342,7 @@ func (e *numberExecutor) IsEmpty(unitTagValue []string, configValue string) bool
 	return len(unitTagValue) == 0
 }
 
-// IsNotEmpty unitTagValue Determine whether the passed tag key or value is not empty
+// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty
 func (e *numberExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
 	return !e.IsEmpty(unitTagValue, configValue)
 }
