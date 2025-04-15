@@ -19,8 +19,8 @@ func (e *emptyExecutor) IsNotEmpty(unitTagValue []string, configValue string) bo
 	return len(unitTagValue) > 0
 }
 
-// IsEmptyTag unitTagValue Determine whether the passed tag key or value is empty or value is not ""
-func IsEmptyTag(unitTagValue []string, configValue string) bool {
+// isEmptyTag unitTagValue Determine whether the passed tag key or value is empty or value is not ""
+func isEmptyTag(unitTagValue []string, configValue string) bool {
 	if len(unitTagValue) == 0 {
 		return true
 	}
