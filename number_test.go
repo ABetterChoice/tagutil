@@ -1534,3 +1534,189 @@ func Test_numberExecutor_LORO(t *testing.T) {
 		})
 	}
 }
+
+func Test_numberExecutor_IsEmpty(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with one empty string",
+			args: args{
+				unitTagValue: []string{""},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with multiple empty strings",
+			args: args{
+				unitTagValue: []string{"", ""},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with non-empty number",
+			args: args{
+				unitTagValue: []string{"123"},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with non-empty numbers",
+			args: args{
+				unitTagValue: []string{"123", "456"},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with a mix of empty and non-empty values",
+			args: args{
+				unitTagValue: []string{"", "123"},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with only whitespace",
+			args: args{
+				unitTagValue: []string{" "},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with negative number",
+			args: args{
+				unitTagValue: []string{"-123"},
+				configValue:  "",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &numberExecutor{}
+			if got := e.IsEmpty(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_numberExecutor_IsNotEmpty(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with one empty string",
+			args: args{
+				unitTagValue: []string{""},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with multiple empty strings",
+			args: args{
+				unitTagValue: []string{"", ""},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with non-empty number",
+			args: args{
+				unitTagValue: []string{"123"},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with non-empty numbers",
+			args: args{
+				unitTagValue: []string{"123", "456"},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with a mix of empty and non-empty values",
+			args: args{
+				unitTagValue: []string{"", "123"},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with only whitespace",
+			args: args{
+				unitTagValue: []string{" "},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with negative number",
+			args: args{
+				unitTagValue: []string{"-123"},
+				configValue:  "",
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &numberExecutor{}
+			if got := e.IsNotEmpty(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsNotEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
