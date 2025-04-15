@@ -153,20 +153,12 @@ func (e *stringExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IsEmpty unitTagValue Determine whether the passed tag key or value is empty
+// IsEmpty unitTagValue Determine whether the passed tag key or value is empty or value is not ""
 func (e *stringExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 {
-		return true
-	}
-	for _, val := range unitTagValue {
-		if val != "" {
-			return false
-		}
-	}
-	return true
+	return IsEmptyTag(unitTagValue, configValue)
 }
 
-// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty
+// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty and value is not ""
 func (e *stringExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
-	return !e.IsEmpty(unitTagValue, configValue)
+	return !IsEmptyTag(unitTagValue, configValue)
 }
