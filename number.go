@@ -336,3 +336,13 @@ func (e *numberExecutor) LCRC(unitTagValue []string, configValue string) bool {
 	}
 	return true
 }
+
+// IsEmpty unitTagValue Determine whether the passed tag key or value is empty or value is not ""
+func (e *numberExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
+	return isEmptyTag(unitTagValue, configValue)
+}
+
+// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty and value is not ""
+func (e *numberExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
+	return !isEmptyTag(unitTagValue, configValue)
+}

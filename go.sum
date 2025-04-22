@@ -380,8 +380,10 @@ dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
-github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52 h1:6sfFVVX1hy/BGIZgNt+nZpjpFJPQ63tFpnYaPb3w554=
-github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52/go.mod h1:b5fK70opi9WsCWInNhE2jdBXmsdlt6ITQ9euLw0EeZE=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422060527-612d6baf304d h1:uvFUuTvsOwt55oJlrG+jlhsDx55HSKEM50zjh+SgiJQ=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422060527-612d6baf304d/go.mod h1:BI7+MhlJR/f/mkQZ/ujTCRgZechHJkMytrPf2sNdBwA=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422112234-d546680b8d97 h1:YnzNK7IV12M66yFwy15H1TFapzWTTeMEpjbsGYZ8xLc=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422112234-d546680b8d97/go.mod h1:BI7+MhlJR/f/mkQZ/ujTCRgZechHJkMytrPf2sNdBwA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/census-instrumentation/opencensus-proto v0.3.0/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

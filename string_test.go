@@ -943,3 +943,311 @@ func Test_stringExecutor_REGEXP(t *testing.T) {
 		})
 	}
 }
+
+func Test_stringExecutor_IsEmpty(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with one empty string",
+			args: args{
+				unitTagValue: []string{""},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with multiple empty strings",
+			args: args{
+				unitTagValue: []string{"", ""},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with non-empty string",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with a mix of empty and non-empty strings",
+			args: args{
+				unitTagValue: []string{"", "hello"},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with only whitespace strings",
+			args: args{
+				unitTagValue: []string{" "},
+				configValue:  "",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &stringExecutor{}
+			if got := e.IsEmpty(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_stringExecutor_IsNotEmpty(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with one empty string",
+			args: args{
+				unitTagValue: []string{""},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with multiple empty strings",
+			args: args{
+				unitTagValue: []string{"", ""},
+				configValue:  "",
+			},
+			want: false,
+		},
+		{
+			name: "slice with non-empty string",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with a mix of empty and non-empty strings",
+			args: args{
+				unitTagValue: []string{"", "hello"},
+				configValue:  "",
+			},
+			want: true,
+		},
+		{
+			name: "slice with only whitespace strings",
+			args: args{
+				unitTagValue: []string{" "},
+				configValue:  "",
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &stringExecutor{}
+			if got := e.IsNotEmpty(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("IsNotEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_stringExecutor_Like(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "matching value in single-element slice",
+			args: args{
+				unitTagValue: []string{"test"},
+				configValue:  "test",
+			},
+			want: true,
+		},
+		{
+			name: "non-matching value in single-element slice",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "matching one value in multi-element slice",
+			args: args{
+				unitTagValue: []string{"hello", "test", "world"},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "non-matching value in multi-element slice",
+			args: args{
+				unitTagValue: []string{"hello", "world"},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "configValue partially matches an element",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "hel",
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &stringExecutor{}
+			if got := e.Like(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("Like() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_stringExecutor_NotLike(t *testing.T) {
+	type args struct {
+		unitTagValue []string
+		configValue  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "empty slice",
+			args: args{
+				unitTagValue: []string{},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "nil slice",
+			args: args{
+				unitTagValue: nil,
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "matching value in single-element slice",
+			args: args{
+				unitTagValue: []string{"test"},
+				configValue:  "test",
+			},
+			want: false,
+		},
+		{
+			name: "non-matching value in single-element slice",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "test",
+			},
+			want: true,
+		},
+		{
+			name: "matching one value in multi-element slice",
+			args: args{
+				unitTagValue: []string{"hello", "test", "world"},
+				configValue:  "test",
+			},
+			want: true,
+		},
+		{
+			name: "non-matching value in multi-element slice",
+			args: args{
+				unitTagValue: []string{"hello", "world"},
+				configValue:  "test",
+			},
+			want: true,
+		},
+		{
+			name: "configValue partially matches an element",
+			args: args{
+				unitTagValue: []string{"hello"},
+				configValue:  "hel",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := &stringExecutor{}
+			if got := e.NotLike(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("NotLike() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

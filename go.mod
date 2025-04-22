@@ -3,7 +3,7 @@ module github.com/abetterchoice/tagutil
 go 1.17
 
 require (
-	github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52
+	github.com/abetterchoice/protoc_cache_server v0.0.0-20250422112234-d546680b8d97
 	github.com/shopspring/decimal v1.3.1
 )
 
