@@ -29,6 +29,8 @@ var executorIndex = map[protoctabcacheserver.TagType]map[protoctabcacheserver.Op
 		protoctabcacheserver.Operator_OPERATOR_NOT_IN:    stringExecutorImpl.NotIN,
 		protoctabcacheserver.Operator_OPERATOR_EMPTY:     stringExecutorImpl.IsEmpty,
 		protoctabcacheserver.Operator_OPERATOR_NOT_EMPTY: stringExecutorImpl.IsNotEmpty,
+		protoctabcacheserver.Operator_OPERATOR_LIKE:      stringExecutorImpl.Like,
+		protoctabcacheserver.Operator_OPERATOR_NOT_LIKE:  stringExecutorImpl.NotLike,
 	},
 	protoctabcacheserver.TagType_TAG_TYPE_NUMBER: {
 		protoctabcacheserver.Operator_OPERATOR_EQ:        numberExecutorImpl.EQ,

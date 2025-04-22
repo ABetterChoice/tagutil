@@ -162,3 +162,29 @@ func (e *stringExecutor) IsEmpty(unitTagValue []string, configValue string) bool
 func (e *stringExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
 	return !isEmptyTag(unitTagValue, configValue)
 }
+
+// Like Determine whether unitTagValue is like configValue
+func (e *stringExecutor) Like(unitTagValue []string, configValue string) bool {
+	if len(unitTagValue) == 0 {
+		return false
+	}
+	return contains(unitTagValue, configValue)
+}
+
+// NotLike Determine whether unitTagValue is not like configValue
+func (e *stringExecutor) NotLike(unitTagValue []string, configValue string) bool {
+	if len(unitTagValue) == 0 {
+		return false
+	}
+	return !contains(unitTagValue, configValue)
+}
+
+// contains Determine whether unitTagValue is contain in configValue
+func contains(unitTagValue []string, configValue string) bool {
+	for _, value := range unitTagValue {
+		if !strings.Contains(value, configValue) {
+			return false
+		}
+	}
+	return true
+}

@@ -382,6 +382,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/OneOfOne/xxhash v1.2.2/go.mod h1:HSdplMjZKSmBqAxg5vPj2TmRDmfkzw+cTzAElWljhcU=
 github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52 h1:6sfFVVX1hy/BGIZgNt+nZpjpFJPQ63tFpnYaPb3w554=
 github.com/abetterchoice/protoc_cache_server v0.0.0-20240612070707-95d054d41d52/go.mod h1:b5fK70opi9WsCWInNhE2jdBXmsdlt6ITQ9euLw0EeZE=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422060527-612d6baf304d h1:uvFUuTvsOwt55oJlrG+jlhsDx55HSKEM50zjh+SgiJQ=
+github.com/abetterchoice/protoc_cache_server v0.0.0-20250422060527-612d6baf304d/go.mod h1:BI7+MhlJR/f/mkQZ/ujTCRgZechHJkMytrPf2sNdBwA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/census-instrumentation/opencensus-proto v0.3.0/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
