@@ -109,6 +109,21 @@ func (e *stringExecutor) REGEXP(unitTagValue []string, configValue string) bool 
 	return true
 }
 
+// NOTREGEXP Fails if any unitTagValue element matches the regular expression configured by the web system
+// such as unitTagValue[0] = `Hello Regexp` configValue = `^Hello` match == false
+// In particular, when configValue is empty "", the result is false
+func (e *stringExecutor) NOTREGEXP(unitTagValue []string, configValue string) bool {
+	if len(unitTagValue) == 0 { // No user tag is carried, default is false
+		return false
+	}
+	for i := range unitTagValue {
+		if match, _ := regexp.MatchString(configValue, unitTagValue[i]); match { // If any unitTagValue matches, the result is false
+			return false
+		}
+	}
+	return true
+}
+
 // IN Determine whether unitTagValue is in configValue. configValue is separated by ;
 func (e *stringExecutor) IN(unitTagValue []string, configValue string) bool {
 	// No user tag is carried, default is false
@@ -153,38 +168,12 @@ func (e *stringExecutor) NotIN(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IsEmpty unitTagValue Determine whether the passed tag key or value is empty or value is not ""
+// IsEmpty unitTagValue Determine whether the passed tag value is empty
 func (e *stringExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
-	return isEmptyTag(unitTagValue, configValue)
+	return emptyExecutorImpl.IsEmpty(unitTagValue, configValue)
 }
 
-// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty and value is not ""
+// IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
 func (e *stringExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
-	return !isEmptyTag(unitTagValue, configValue)
-}
-
-// Like Determine whether unitTagValue is like configValue
-func (e *stringExecutor) Like(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 {
-		return false
-	}
-	return contains(unitTagValue, configValue)
-}
-
-// NotLike Determine whether unitTagValue is not like configValue
-func (e *stringExecutor) NotLike(unitTagValue []string, configValue string) bool {
-	if len(unitTagValue) == 0 {
-		return false
-	}
-	return !contains(unitTagValue, configValue)
-}
-
-// contains Determine whether unitTagValue is contain in configValue
-func contains(unitTagValue []string, configValue string) bool {
-	for _, value := range unitTagValue {
-		if !strings.Contains(value, configValue) {
-			return false
-		}
-	}
-	return true
+	return emptyExecutorImpl.IsNotEmpty(unitTagValue, configValue)
 }

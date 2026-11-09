@@ -31,12 +31,12 @@ func (e *booleanExecutor) EQ(unitTagValue []string, configValue string) bool {
 	return true
 }
 
-// IsEmpty unitTagValue Determine whether the passed tag key or value is empty or value is not ""
+// IsEmpty unitTagValue Determine whether the passed tag value is empty
 func (e *booleanExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
-	return isEmptyTag(unitTagValue, configValue)
+	return emptyExecutorImpl.IsEmpty(unitTagValue, configValue)
 }
 
-// IsNotEmpty unitTagValue Determine whether the passed tag key and value is not empty and value is not ""
+// IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
 func (e *booleanExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
-	return !isEmptyTag(unitTagValue, configValue)
+	return emptyExecutorImpl.IsNotEmpty(unitTagValue, configValue)
 }
