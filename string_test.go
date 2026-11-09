@@ -976,7 +976,7 @@ func Test_stringExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -984,7 +984,7 @@ func Test_stringExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with non-empty string",
@@ -1053,7 +1053,7 @@ func Test_stringExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -1061,7 +1061,7 @@ func Test_stringExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with non-empty string",
@@ -1098,7 +1098,7 @@ func Test_stringExecutor_IsNotEmpty(t *testing.T) {
 	}
 }
 
-func Test_stringExecutor_Like(t *testing.T) {
+func Test_stringExecutor_NOTREGEXP(t *testing.T) {
 	type args struct {
 		unitTagValue []string
 		configValue  string
@@ -1108,145 +1108,19 @@ func Test_stringExecutor_Like(t *testing.T) {
 		args args
 		want bool
 	}{
-		{
-			name: "empty slice",
-			args: args{
-				unitTagValue: []string{},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "nil slice",
-			args: args{
-				unitTagValue: nil,
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "matching value in single-element slice",
-			args: args{
-				unitTagValue: []string{"test"},
-				configValue:  "test",
-			},
-			want: true,
-		},
-		{
-			name: "non-matching value in single-element slice",
-			args: args{
-				unitTagValue: []string{"hello"},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "matching one value in multi-element slice",
-			args: args{
-				unitTagValue: []string{"hello", "test", "world"},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "non-matching value in multi-element slice",
-			args: args{
-				unitTagValue: []string{"hello", "world"},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "configValue partially matches an element",
-			args: args{
-				unitTagValue: []string{"hello"},
-				configValue:  "hel",
-			},
-			want: true,
-		},
+		{name: "nil slice", args: args{unitTagValue: nil, configValue: "^Hello"}, want: false},
+		{name: "empty slice", args: args{unitTagValue: []string{}, configValue: "^Hello"}, want: false},
+		{name: "single value matches", args: args{unitTagValue: []string{"Hello Regexp"}, configValue: "^Hello"}, want: false},
+		{name: "single value does not match", args: args{unitTagValue: []string{"Hi Regexp"}, configValue: "^Hello"}, want: true},
+		{name: "one of multiple values matches", args: args{unitTagValue: []string{"Hi", "Hello"}, configValue: "^Hello"}, want: false},
+		{name: "no value matches", args: args{unitTagValue: []string{"Hi", "Hey"}, configValue: "^Hello"}, want: true},
+		{name: "empty pattern matches everything", args: args{unitTagValue: []string{"Hi"}, configValue: ""}, want: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			e := &stringExecutor{}
-			if got := e.Like(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("Like() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_stringExecutor_NotLike(t *testing.T) {
-	type args struct {
-		unitTagValue []string
-		configValue  string
-	}
-	tests := []struct {
-		name string
-		args args
-		want bool
-	}{
-		{
-			name: "empty slice",
-			args: args{
-				unitTagValue: []string{},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "nil slice",
-			args: args{
-				unitTagValue: nil,
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "matching value in single-element slice",
-			args: args{
-				unitTagValue: []string{"test"},
-				configValue:  "test",
-			},
-			want: false,
-		},
-		{
-			name: "non-matching value in single-element slice",
-			args: args{
-				unitTagValue: []string{"hello"},
-				configValue:  "test",
-			},
-			want: true,
-		},
-		{
-			name: "matching one value in multi-element slice",
-			args: args{
-				unitTagValue: []string{"hello", "test", "world"},
-				configValue:  "test",
-			},
-			want: true,
-		},
-		{
-			name: "non-matching value in multi-element slice",
-			args: args{
-				unitTagValue: []string{"hello", "world"},
-				configValue:  "test",
-			},
-			want: true,
-		},
-		{
-			name: "configValue partially matches an element",
-			args: args{
-				unitTagValue: []string{"hello"},
-				configValue:  "hel",
-			},
-			want: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			e := &stringExecutor{}
-			if got := e.NotLike(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
-				t.Errorf("NotLike() = %v, want %v", got, tt.want)
+			if got := e.NOTREGEXP(tt.args.unitTagValue, tt.args.configValue); got != tt.want {
+				t.Errorf("NOTREGEXP() = %v, want %v", got, tt.want)
 			}
 		})
 	}

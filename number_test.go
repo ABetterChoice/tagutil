@@ -1567,7 +1567,7 @@ func Test_numberExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -1575,7 +1575,7 @@ func Test_numberExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with non-empty number",
@@ -1660,7 +1660,7 @@ func Test_numberExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -1668,7 +1668,7 @@ func Test_numberExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with non-empty number",

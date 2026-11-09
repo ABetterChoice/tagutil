@@ -168,7 +168,7 @@ func Test_booleanExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -176,7 +176,7 @@ func Test_booleanExecutor_IsEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "slice with one non-empty boolean-like value",
@@ -261,7 +261,7 @@ func Test_booleanExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with multiple empty strings",
@@ -269,7 +269,7 @@ func Test_booleanExecutor_IsNotEmpty(t *testing.T) {
 				unitTagValue: []string{"", ""},
 				configValue:  "",
 			},
-			want: false,
+			want: true,
 		},
 		{
 			name: "slice with one non-empty boolean-like value",

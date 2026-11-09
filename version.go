@@ -20,6 +20,16 @@ var (
 	versionExecutorImpl = &versionExecutor{}
 )
 
+// IsEmpty unitTagValue Determine whether the passed tag value is empty
+func (e *versionExecutor) IsEmpty(unitTagValue []string, configValue string) bool {
+	return emptyExecutorImpl.IsEmpty(unitTagValue, configValue)
+}
+
+// IsNotEmpty unitTagValue Determine whether the passed tag value is not empty
+func (e *versionExecutor) IsNotEmpty(unitTagValue []string, configValue string) bool {
+	return emptyExecutorImpl.IsNotEmpty(unitTagValue, configValue)
+}
+
 // compare Compare versions
 // If unitTagValueVersion > [version number comparison] configVersion, return 1
 // If unitTagValueVersion = [version number comparison] configVersion, return 0
